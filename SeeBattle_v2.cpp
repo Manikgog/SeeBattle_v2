@@ -87,7 +87,7 @@ int main()
 }
 
 char Dec_to_alpha(int row) {
-	char A;
+	char A ='z';
 	switch (row) {
 	case 1:
 		A = 'a';
@@ -187,6 +187,8 @@ int alpha_to_dec(char A) {
 	case 'j':
 		row = 10;
 		break;
+	default:
+		row = 11;
 	}
 	return row;
 }
@@ -794,36 +796,20 @@ void gamerShooting() {
 	int compShips = 0;
 	int x, y;
 	do {
-		
 		result = false;
-		bool first = true;
+		char str[20];
+		x = 0; y = 0;
 		do {
-			char c;
-			char str[3];
-			x = 0; y = 0;
-			if (first == true) {
-				std::cout << "¬ведите координату строки (a - j) -> ";
-				std::cin >> c;
-				y = alpha_to_dec(c);
-				
-				std::cout << "¬ведите координату столбца (1 - 10) -> ";
-				std::cin >> x;
-			}
-			else {
-				std::cout << " оординаты должны быть от a до j и от 1 до 10.\n";
-				std::cout << "¬ведите координату строки (a - j) -> ";
-				std::cin >> c;
-				y = alpha_to_dec(c);
+			std::cout << "¬ведите координату строки (a - j) -> ";
+			std::cin >> str;
+			y = alpha_to_dec(str[0]);	
+		} while (y < 1 || y > 10);
 
-				std::cout << "¬ведите координату столбца (1 - 10) -> ";
-				std::cin >> x;
-			}
-			first = false;
-
-			
-			
-			
-		} while ((x < 1 || x > 10) || (y < 1 || y > 10));
+		do {
+			std::cout << "¬ведите координату столбца (1 - 10) -> ";
+			std::cin >> str;
+			x = std::atoi(str);
+		} while (x < 1 || x > 10);
 		
 		x--; y--;
 		// если попал
