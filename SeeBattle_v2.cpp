@@ -86,6 +86,111 @@ int main()
 	return 0;
 }
 
+char Dec_to_alpha(int row) {
+	char A;
+	switch (row) {
+	case 1:
+		A = 'a';
+		break;
+	case 2:
+		A = 'b';
+		break;
+	case 3:
+		A = 'c';
+		break;
+	case 4:
+		A = 'd';
+		break;
+	case 5:
+		A = 'e';
+		break;
+	case 6:
+		A = 'f';
+		break;
+	case 7:
+		A = 'g';
+		break;
+	case 8:
+		A = 'h';
+		break;
+	case 9:
+		A = 'i';
+		break;
+	case 10:
+		A = 'j';
+		break;
+	}
+
+	return A;
+}
+
+int alpha_to_dec(char A) {
+	int row = 1;
+	switch (A) {
+	case 'A':
+		row = 1;
+		break;
+	case 'a':
+		row = 1;
+		break;
+	case 'B':
+		row = 2;
+		break;
+	case 'b':
+		row = 2;
+		break;
+	case 'C':
+		row = 3;
+		break;
+	case 'c':
+		row = 3;
+		break;
+	case 'D':
+		row = 4;
+		break;
+	case 'd':
+		row = 4;
+		break;
+	case 'E':
+		row = 5;
+		break;
+	case 'e':
+		row = 5;
+		break;
+	case 'F':
+		row = 6;
+		break;
+	case 'f':
+		row = 6;
+		break;
+	case 'G':
+		row = 7;
+		break;
+	case 'g':
+		row = 7;
+		break;
+	case 'H':
+		row = 8;
+		break;
+	case 'h':
+		row = 8;
+		break;
+	case 'I':
+		row = 9;
+		break;
+	case 'i':
+		row = 9;
+		break;
+	case 'J':
+		row = 10;
+		break;
+	case 'j':
+		row = 10;
+		break;
+	}
+	return row;
+}
+
 void clearFilds() {
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 10; ++j) {
@@ -693,25 +798,31 @@ void gamerShooting() {
 		result = false;
 		bool first = true;
 		do {
-			char c[3];
+			char c;
+			char str[3];
 			x = 0; y = 0;
 			if (first == true) {
-				std::cout << "Введите координаты для нанесения удара (X, Y) -> ";
+				std::cout << "Введите координату строки (a - j) -> ";
+				std::cin >> c;
+				y = alpha_to_dec(c);
+				
+				std::cout << "Введите координату столбца (1 - 10) -> ";
+				std::cin >> x;
 			}
 			else {
-				std::cout << "\x1b[31mКоординаты должны быть в интервале от 1 до 10. Внимательнее вводите координаты!\x1b[0m\n";
-				std::cout << "Введите координаты для нанесения удара (X, Y) -> ";
+				std::cout << "Координаты должны быть от a до j и от 1 до 10.\n";
+				std::cout << "Введите координату строки (a - j) -> ";
+				std::cin >> c;
+				y = alpha_to_dec(c);
+
+				std::cout << "Введите координату столбца (1 - 10) -> ";
+				std::cin >> x;
 			}
 			first = false;
 
 			
-			//std::cin >> x >> y;
 			
-			std::cin >> c;
-			x = atoi(c);
-
-			std::cin >> c;
-			y = atoi(c);
+			
 		} while ((x < 1 || x > 10) || (y < 1 || y > 10));
 		
 		x--; y--;
@@ -1583,8 +1694,8 @@ void drawCompShips() {
 	std::cout << "\n";
 	for (unsigned int i = 0; i < 10; ++i) {
 		std::cout << "  ";
-		if (i == 9) std::cout << i + 1 << " "; // прорисовка столбца цифр по оси Y
-		else std::cout << i + 1 << "  ";
+		std::cout << Dec_to_alpha(i + 1) << "  "; // прорисовка столбца букв по оси Y
+		
 		for (unsigned int j = 0; j < 10; ++j) {
 			if (compShipsMap[i][j] == 0) {
 				if (j == 9) std::cout << "   |";
@@ -1633,8 +1744,7 @@ void drawGamerShips() {
 	std::cout << "\n";
 	for (unsigned int i = 0; i < 10; ++i) {
 		std::cout << "  ";
-		if (i == 9) std::cout << i + 1 << " "; // прорисовка столбца цифр по оси Y
-		else std::cout << i + 1 << "  ";
+		std::cout << Dec_to_alpha(i + 1) << "  "; // прорисовка столбца букв по оси Y
 		for (unsigned int j = 0; j < 10; ++j) {
 			if (gamerShipsMap[i][j] == 0) {
 				if (j == 9) std::cout << "   |";
